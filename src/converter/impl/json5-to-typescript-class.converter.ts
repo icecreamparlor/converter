@@ -1,6 +1,8 @@
-import JSON5 = require("../../js/json5");
+import * as vscode from "vscode";
 import { COMMAND } from "../../settings";
+import { die } from "../../util";
 import { Converter } from "../converter";
+import JSON5 = require("../../js/json5");
 
 export class Json5ToTypeScriptClassConverter implements Converter {
   shouldHandle(command: string): boolean {
@@ -9,14 +11,26 @@ export class Json5ToTypeScriptClassConverter implements Converter {
 
   async convert(json: string): Promise<string> {
     const obj = JSON5.parse(json);
-    return this.convertToTypeScriptClass(obj);
+    const input =
+      (await vscode.window.showInputBox({
+        placeHolder: "Convert Properties to Readonly?",
+        prompt: "Convert Properties to Readonly?",
+        value: "Y",
+      })) ?? die(new Error("Please Enter Y or N"));
+    const readonly = input.toUpperCase() === "Y";
+
+    return this.convertToTypeScriptClass(obj, readonly);
   }
 
-  private convertToTypeScriptClass(obj: Record<string, any>): string {
+  private convertToTypeScriptClass(
+    obj: Record<string, any>,
+    readonly: boolean
+  ): string {
     const result: Record<string, string> = {};
     const targets: {
       className: string;
       target: Record<string, any>;
+      readonly: boolean;
     }[] = [];
 
     /** If Root JSON is Array, Iterate and Parse */
@@ -26,6 +40,7 @@ export class Json5ToTypeScriptClassConverter implements Converter {
           targets.push({
             className: `Root${i}`,
             target: o,
+            readonly,
           });
         }
       });
@@ -33,6 +48,7 @@ export class Json5ToTypeScriptClassConverter implements Converter {
       targets.push({
         className: "Root",
         target: obj,
+        readonly,
       });
     }
 
@@ -57,12 +73,15 @@ export class Json5ToTypeScriptClassConverter implements Converter {
             const nestedClassName = this.capitalizeFirstLetter(key);
             arrayType = nestedClassName;
             targets.push({
+              readonly,
               className: nestedClassName,
               target: value.find((it) => !this.isPrimitive(it)),
             });
           }
           const propertyName = this.formatPropertyName(key);
-          typeScriptClass += `  ${propertyName}: ${arrayType}[];\n`;
+          typeScriptClass += `  ${
+            readonly ? "readonly" : ""
+          } ${propertyName}: ${arrayType}[];\n`;
           properties.push({
             name: propertyName,
             type: arrayType,
@@ -71,8 +90,11 @@ export class Json5ToTypeScriptClassConverter implements Converter {
         } else if (type === "object" && value !== null) {
           const nestedClassName = this.capitalizeFirstLetter(key);
           const propertyName = this.formatPropertyName(key);
-          typeScriptClass += `  ${propertyName}: ${nestedClassName};\n`;
+          typeScriptClass += `  ${
+            readonly ? "readonly" : ""
+          } ${propertyName}: ${nestedClassName};\n`;
           targets.push({
+            readonly,
             className: nestedClassName,
             target: value,
           });
@@ -83,7 +105,9 @@ export class Json5ToTypeScriptClassConverter implements Converter {
           });
         } else {
           const propertyName = this.formatPropertyName(key);
-          typeScriptClass += `  ${propertyName}: ${type};\n`;
+          typeScriptClass += `  ${
+            readonly ? "readonly" : ""
+          } ${propertyName}: ${type};\n`;
           properties.push({
             name: propertyName,
             type,
