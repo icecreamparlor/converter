@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { QuickPickItem } from "vscode";
 import { Converter } from "./converter/converter";
+import { Base64ToFileConverter } from "./converter/impl/base64-to-file.converter";
 import { Base64ToHexConverter } from "./converter/impl/base64-to-hex.converter";
 import { CamelToSnakeConverter } from "./converter/impl/camel-to-snake.converter";
 import { DecodeBase64Converter } from "./converter/impl/decode-base64.converter";
@@ -18,6 +19,7 @@ import { FilePathToBase64Converter } from "./converter/impl/file-path-to-base64.
 import { FilePathToHexConverter } from "./converter/impl/file-path-to-hex.converter";
 import { FilePathToPlainTextConverter } from "./converter/impl/file-path-to-plain-text.converter";
 import { HexToBase64Converter } from "./converter/impl/hex-to-base64.converter";
+import { HexToFileConverter } from "./converter/impl/hex-to-file.converter";
 import { HttpToCurlConverter } from "./converter/impl/http-to-curl.converter";
 import { JsonStringifiedToPlainConverter } from "./converter/impl/json-stringified-to-plain.converter";
 import { Json5ToParameterConverter } from "./converter/impl/json-to-parameter.converter";
@@ -96,6 +98,8 @@ export const COMMAND = {
   RemoveLineBreakAndSpace: "remove-space-and-line",
   UnescapeHtml: "unescape-html",
   EvalJavascript: "eval-javascript",
+  Base64ToFile: "base64-to-file",
+  HexToFile: "hex-to-file",
 } as const;
 
 export const COMMAND_HANDLERS: (QuickPickItem & {
@@ -334,5 +338,15 @@ export const COMMAND_HANDLERS: (QuickPickItem & {
     id: COMMAND.EvalJavascript,
     label: "Eval Javascript",
     converter: new EvalJavascriptConverter(),
+  },
+  {
+    id: COMMAND.Base64ToFile,
+    label: "Save Base64 To File",
+    converter: new Base64ToFileConverter(),
+  },
+  {
+    id: COMMAND.HexToFile,
+    label: "Save Hex To File",
+    converter: new HexToFileConverter(),
   },
 ];
