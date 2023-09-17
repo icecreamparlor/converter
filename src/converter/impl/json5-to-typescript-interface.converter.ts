@@ -3,7 +3,6 @@ import * as JSON5 from "../../js/json5";
 
 import JSONToTypescript from "json-to-ts";
 import { COMMAND } from "../../settings";
-import { die } from "../../util";
 import { Converter } from "../converter";
 
 export class Json5ToTypescriptInterfaceConverter implements Converter {
@@ -12,16 +11,19 @@ export class Json5ToTypescriptInterfaceConverter implements Converter {
   }
   async convert(jsonString: string): Promise<string> {
     const obj = JSON5.parse(jsonString);
-    const input =
-      (await vscode.window.showInputBox({
-        placeHolder: "Convert Properties to Readonly?",
-        prompt: "Convert Properties to Readonly?",
-        value: "Y",
-      })) ?? die(new Error("Please Enter Y or N"));
-    const isReadonly = input.toUpperCase() === "Y";
+    const input = await vscode.window.showInformationMessage(
+      "Convert Properties to Readonly ?",
+      { modal: true },
+      "readonly",
+      "mutable"
+    );
+    if (!input) {
+      return jsonString;
+    }
+    const readonly = input === "readonly";
 
     return JSONToTypescript(obj).reduce((code, typescriptInterface) => {
-      if (!isReadonly) {
+      if (!readonly) {
         return `${code}\n\n${typescriptInterface}`;
       }
 

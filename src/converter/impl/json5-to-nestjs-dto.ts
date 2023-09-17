@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import { COMMAND } from "../../settings";
-import { die } from "../../util";
 import { Converter } from "../converter";
 import JSON5 = require("../../js/json5");
 
@@ -15,13 +14,17 @@ export class Json5ToNestjsDtoConverter implements Converter {
 
   async convert(json: string): Promise<string> {
     const obj = JSON5.parse(json);
-    const input =
-      (await vscode.window.showInputBox({
-        placeHolder: "Convert Properties to Readonly?",
-        prompt: "Convert Properties to Readonly?",
-        value: "Y",
-      })) ?? die(new Error("Please Enter Y or N"));
-    const readonly = input.toUpperCase() === "Y";
+    const input = await vscode.window.showInformationMessage(
+      "Convert Properties to Readonly ?",
+      { modal: true },
+      "readonly",
+      "mutable"
+    );
+
+    if (!input) {
+      return json;
+    }
+    const readonly = input === "readonly";
 
     return this.convertToTypeScriptClass(obj, readonly, false);
   }
