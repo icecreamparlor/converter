@@ -46,6 +46,7 @@ import { UnescapeHtmlConverter } from "./converter/impl/unescape-html.converter"
 import { UnescapeTextConverter } from "./converter/impl/unescape-text.converter";
 import { XmlToJsonConverter } from "./converter/impl/xml-to-json.converter";
 import { YamlToJsonConverter } from "./converter/impl/yaml-to-json.converter";
+import { Json5ToNestjsDtoConverter } from "./converter/impl/json5-to-nestjs-dto";
 
 export const EXTENSION_NAME = "converter";
 export const DEFAULT_ERROR_MESSAGE =
@@ -100,6 +101,7 @@ export const COMMAND = {
   EvalJavascript: "eval-javascript",
   Base64ToFile: "base64-to-file",
   HexToFile: "hex-to-file",
+  JSON5ToNestjsDto: "json5-to-nestjs-dto",
 } as const;
 
 export const COMMAND_HANDLERS: (QuickPickItem & {
@@ -348,5 +350,10 @@ export const COMMAND_HANDLERS: (QuickPickItem & {
     id: COMMAND.HexToFile,
     label: "Save Hex To File",
     converter: new HexToFileConverter(),
+  },
+  {
+    id: COMMAND.JSON5ToNestjsDto,
+    label: "Convert JSON5 to Nestjs DTO",
+    converter: new Json5ToNestjsDtoConverter(),
   },
 ];

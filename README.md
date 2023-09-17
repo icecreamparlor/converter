@@ -61,11 +61,14 @@
   * *Convert File Path To Plain Text*
   * *Convert File Path To Base64*
   * *Convert File Path To Hex*
+  * *Save Base64 To File*
+  * *Save Hex To File*
 * **JavaScript**
   * *Eval Javascript*
 * **TypeScript**
   * *Convert JSON5 To Typescript Interface*
   * *Convert JSON5 To Typescript Class*
+  * *Convert JSON5 To Nestjs DTO Class*
 * **Kotlin**
   * *Convert JSON5 To Kotlin Data Class*
 * **Http**
