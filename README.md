@@ -36,6 +36,8 @@
   * *Convert To Pascal Case*
   * *Convert To Snake Case*
   * *Convert To Kebab Case*
+  * *Convert To Constant Case*
+  * *Convert To Dot Case*
 * **Prettify / Beautify**
   * *Prettify JSON*
   * *Prettify XML*

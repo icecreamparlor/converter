@@ -40,6 +40,8 @@ import { RemoveLineBreakConverter } from "./converter/impl/remove-line-break.con
 import { Sha256Converter } from "./converter/impl/sha-256.converter";
 import { Sha512Converter } from "./converter/impl/sha-512.converter";
 import { ToCamelCaseConverter } from "./converter/impl/to-camel-case.converter";
+import { ToConstantCaseConverter } from "./converter/impl/to-constant-case.converter";
+import { ToDotCaseConverter } from "./converter/impl/to-dot-case.converter";
 import { ToKebabCaseConverter } from "./converter/impl/to-kebab-case.converter";
 import { ToLowerCaseConverter } from "./converter/impl/to-lowercase-converter";
 import { ToPascalCaseConverter } from "./converter/impl/to-pascal-case.converter";
@@ -106,6 +108,8 @@ export const COMMAND = {
   ToSnakeCase: "to-snake-case",
   ToPascalCase: "to-pascal-case",
   ToKebabCase: "to-kebab-case",
+  ToConstantCase: "to-constant-case",
+  ToDotCase: "to-dot-case",
 } as const;
 
 export const COMMAND_HANDLERS: (QuickPickItem & {
@@ -369,5 +373,15 @@ export const COMMAND_HANDLERS: (QuickPickItem & {
     id: COMMAND.ToKebabCase,
     label: "Convert to Kebab Case",
     converter: new ToKebabCaseConverter(),
+  },
+  {
+    id: COMMAND.ToConstantCase,
+    label: "Convert to Constant Case",
+    converter: new ToConstantCaseConverter(),
+  },
+  {
+    id: COMMAND.ToDotCase,
+    label: "Convert to Dot Case",
+    converter: new ToDotCaseConverter(),
   },
 ];
