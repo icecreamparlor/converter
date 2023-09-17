@@ -32,8 +32,10 @@
   * *Encrypt AES-CBC*
   * *Decrypt AES-CBC*
 * **Code Style**
-  * *Convert Camel Case To Snake Case*
-  * *Convert Snake Case To Camel Case*
+  * *Convert To Camel Case*
+  * *Convert To Pascal Case*
+  * *Convert To Snake Case*
+  * *Convert To Kebab Case*
 * **Prettify / Beautify**
   * *Prettify JSON*
   * *Prettify XML*
