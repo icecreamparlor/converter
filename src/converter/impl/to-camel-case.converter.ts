@@ -1,12 +1,12 @@
+import * as changeCase from "change-case";
 import { COMMAND } from "../../settings";
-import { snakeToCamel } from "../../util";
 import { Converter } from "../converter";
 
-export class SnakeToCamelConverter implements Converter {
+export class ToCamelCaseConverter implements Converter {
   shouldHandle(command: string): boolean {
-    return command === COMMAND.SnakeToCamel;
+    return command === COMMAND.ToCamelCase;
   }
   async convert(text: string): Promise<string> {
-    return snakeToCamel(text);
+    return changeCase.camelCase(text);
   }
 }

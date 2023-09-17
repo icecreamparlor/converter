@@ -3,7 +3,6 @@ import { QuickPickItem } from "vscode";
 import { Converter } from "./converter/converter";
 import { Base64ToFileConverter } from "./converter/impl/base64-to-file.converter";
 import { Base64ToHexConverter } from "./converter/impl/base64-to-hex.converter";
-import { CamelToSnakeConverter } from "./converter/impl/camel-to-snake.converter";
 import { DecodeBase64Converter } from "./converter/impl/decode-base64.converter";
 import { DecodeHexConverter } from "./converter/impl/decode-hex.converter";
 import { DecodeUriComponentWithEucKrConverter } from "./converter/impl/decode-uri-component-with-euc-kr.converter";
@@ -27,6 +26,7 @@ import { Json5ToJsonConverter } from "./converter/impl/json5-to-json.converter";
 import { Json5ToKotlinDataClassConverter } from "./converter/impl/json5-to-kotlin-data-class.converter";
 import { Json5ToMongooseConverter } from "./converter/impl/json5-to-mongoose";
 import { Json5ToMysqlDdlConverter } from "./converter/impl/json5-to-mysql-ddl.converter";
+import { Json5ToNestjsDtoConverter } from "./converter/impl/json5-to-nestjs-dto";
 import { Json5ToTypeScriptClassConverter } from "./converter/impl/json5-to-typescript-class.converter";
 import { Json5ToTypescriptInterfaceConverter } from "./converter/impl/json5-to-typescript-interface.converter";
 import { Json5ToXmlConverter } from "./converter/impl/json5-to-xml.converter";
@@ -39,8 +39,11 @@ import { RemoveLineBreakAndSpaceConverter } from "./converter/impl/remove-line-b
 import { RemoveLineBreakConverter } from "./converter/impl/remove-line-break.converter";
 import { Sha256Converter } from "./converter/impl/sha-256.converter";
 import { Sha512Converter } from "./converter/impl/sha-512.converter";
-import { SnakeToCamelConverter } from "./converter/impl/snake-to-camel.converter";
+import { ToCamelCaseConverter } from "./converter/impl/to-camel-case.converter";
+import { ToKebabCaseConverter } from "./converter/impl/to-kebab-case.converter";
 import { ToLowerCaseConverter } from "./converter/impl/to-lowercase-converter";
+import { ToPascalCaseConverter } from "./converter/impl/to-pascal-case.converter";
+import { ToSnakeCaseConverter } from "./converter/impl/to-snake-case.converter";
 import { ToUpperCaseConverter } from "./converter/impl/to-uppercase-converter";
 import { UnescapeHtmlConverter } from "./converter/impl/unescape-html.converter";
 import { UnescapeTextConverter } from "./converter/impl/unescape-text.converter";
@@ -74,8 +77,6 @@ export const COMMAND = {
   DecodeUriComponent: "decode-uri-component",
   DecodeUriComponentWithEucKr: "decode-uri-component-with-euc-kr",
   HTTPToCurl: "http-to-curl",
-  SnakeToCamel: "snake-to-camel",
-  CamelToSnake: "camel-to-snake",
   JSON5ToJson: "json5-to-json",
   JSON5ToTypeScriptInterface: "json5-to-typescript-interface",
   JSON5ToTypeScriptClass: "json5-to-typescript-class",
@@ -100,6 +101,11 @@ export const COMMAND = {
   EvalJavascript: "eval-javascript",
   Base64ToFile: "base64-to-file",
   HexToFile: "hex-to-file",
+  JSON5ToNestjsDto: "json5-to-nestjs-dto",
+  ToCamelCase: "to-camel-case",
+  ToSnakeCase: "to-snake-case",
+  ToPascalCase: "to-pascal-case",
+  ToKebabCase: "to-kebab-case",
 } as const;
 
 export const COMMAND_HANDLERS: (QuickPickItem & {
@@ -220,16 +226,6 @@ export const COMMAND_HANDLERS: (QuickPickItem & {
     converter: new HttpToCurlConverter(),
   },
   {
-    id: COMMAND.CamelToSnake,
-    label: "Convert camelCase To snake_case",
-    converter: new CamelToSnakeConverter(),
-  },
-  {
-    id: COMMAND.SnakeToCamel,
-    label: "Convert snake_case To camelCase",
-    converter: new SnakeToCamelConverter(),
-  },
-  {
     id: COMMAND.JSON5ToJson,
     label: "Convert JSON5 To JSON",
     converter: new Json5ToJsonConverter(),
@@ -348,5 +344,30 @@ export const COMMAND_HANDLERS: (QuickPickItem & {
     id: COMMAND.HexToFile,
     label: "Save Hex To File",
     converter: new HexToFileConverter(),
+  },
+  {
+    id: COMMAND.JSON5ToNestjsDto,
+    label: "Convert JSON5 to Nestjs DTO",
+    converter: new Json5ToNestjsDtoConverter(),
+  },
+  {
+    id: COMMAND.ToCamelCase,
+    label: "Convert to Camel Case",
+    converter: new ToCamelCaseConverter(),
+  },
+  {
+    id: COMMAND.ToSnakeCase,
+    label: "Convert to Snake Case",
+    converter: new ToSnakeCaseConverter(),
+  },
+  {
+    id: COMMAND.ToPascalCase,
+    label: "Convert to Pascal Case",
+    converter: new ToPascalCaseConverter(),
+  },
+  {
+    id: COMMAND.ToKebabCase,
+    label: "Convert to Kebab Case",
+    converter: new ToKebabCaseConverter(),
   },
 ];
