@@ -1,5 +1,5 @@
 import * as xmljs from "xml-js";
-import * as JSON5 from "../../js/json5";
+import { JSON5 } from "../../js/json5";
 import { COMMAND } from "../../settings";
 import { Converter } from "../converter";
 

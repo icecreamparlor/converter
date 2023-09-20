@@ -1,7 +1,7 @@
+import { JSON5 } from "../../js/json5";
 import { COMMAND } from "../../settings";
 import { capitalizeFirstLetter } from "../../util";
 import { Converter } from "../converter";
-import JSON5 = require("../../js/json5");
 
 export class Json5ToKotlinDataClassConverter implements Converter {
   shouldHandle(command: string): boolean {

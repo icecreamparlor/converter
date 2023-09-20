@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
+import { JSON5 } from "../../js/json5";
 import { COMMAND } from "../../settings";
 import { Converter } from "../converter";
-import JSON5 = require("../../js/json5");
 
 export class Json5ToTypeScriptClassConverter implements Converter {
   shouldHandle(command: string): boolean {

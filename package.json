@@ -5,7 +5,7 @@
   "repository": "https://github.com/icecreamparlor/converter",
   "displayName": "Converter",
   "description": "Converter for development",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "publisher": "icecreamparlor",
   "icon": "assets/mipong.jpeg",
   "engines": {
@@ -67,6 +67,7 @@
     "generate-schema": "^2.6.0",
     "iconv-lite": "^0.6.3",
     "json-to-ts": "^1.7.0",
+    "json5": "^2.2.3",
     "node-forge": "^1.3.1",
     "prettier": "^2.8.8",
     "xml-js": "^1.6.11",
