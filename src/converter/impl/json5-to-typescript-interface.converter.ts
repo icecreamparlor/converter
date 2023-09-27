@@ -12,10 +12,10 @@ export class Json5ToTypescriptInterfaceConverter implements Converter {
   async convert(jsonString: string): Promise<string> {
     const obj = JSON5.parse(jsonString);
     const input = await vscode.window.showInformationMessage(
-      "Convert Properties to Readonly ?",
+      "Select mutability of properties",
       { modal: true },
-      "readonly",
-      "mutable"
+      "mutable",
+      "readonly"
     );
     if (!input) {
       return jsonString;
@@ -37,7 +37,8 @@ export class Json5ToTypescriptInterfaceConverter implements Converter {
     return code
       .split("\n")
       .reduce((ac, cv) => {
-        const regexp = /([\s]*)([a-zA-Z가-힣]+)(:[\s]*)([a-zA-Z가-힣\[\]]+;)/g;
+        const regexp =
+          /([\s]*)([_a-zA-Z가-힣]+)(:[\s]*)([_a-zA-Z가-힣\[\]]+;)/g;
 
         if (cv.match(regexp)) {
           return [...ac, cv.replace(regexp, `$1readonly $2$3$4`)];
