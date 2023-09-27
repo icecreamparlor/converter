@@ -5,7 +5,7 @@
   "repository": "https://github.com/icecreamparlor/converter",
   "displayName": "Converter",
   "description": "Converter for development",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "publisher": "icecreamparlor",
   "icon": "assets/mipong.jpeg",
   "engines": {
