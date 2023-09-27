@@ -11,10 +11,10 @@ export class Json5ToTypeScriptClassConverter implements Converter {
   async convert(json: string): Promise<string> {
     const obj = JSON5.parse(json);
     const input = await vscode.window.showInformationMessage(
-      "Convert Properties to Readonly ?",
+      "Select mutability of properties",
       { modal: true },
+      "mutable",
       "readonly",
-      "mutable"
     );
 
     if (!input) {

@@ -15,10 +15,10 @@ export class Json5ToNestjsDtoConverter implements Converter {
   async convert(json: string): Promise<string> {
     const obj = JSON5.parse(json);
     const input = await vscode.window.showInformationMessage(
-      "Convert Properties to Readonly ?",
+      "Select mutability of properties",
       { modal: true },
-      "readonly",
-      "mutable"
+      "mutable",
+      "readonly"
     );
 
     if (!input) {
